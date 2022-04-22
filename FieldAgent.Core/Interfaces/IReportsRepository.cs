@@ -1,4 +1,5 @@
-﻿namespace FieldAgent.Core;
+﻿
+namespace FieldAgent.Core;
 
 public interface IReportsRepository
 {

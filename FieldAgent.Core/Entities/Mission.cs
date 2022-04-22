@@ -14,9 +14,9 @@ public class Mission
     public int MissionId { get; set; }
     public int AgencyId { get; set; }
     public string CodeName { get; set; }
-    public DateOnly StartDate { get; set; }
-    public DateOnly ProjectedEndDate { get; set; }
-    public DateOnly ActualEndDate { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime ProjectedEndDate { get; set; }
+    public DateTime ActualEndDate { get; set; }
     public decimal OperationalCost { get; set; }
     public string? Notes { get; set; }
 }

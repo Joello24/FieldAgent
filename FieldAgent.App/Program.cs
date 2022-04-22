@@ -1,3 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System;
 
-Console.WriteLine("Hello, World!");
+namespace FieldAgent.App;
+
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Do nothing");
+        Console.ResetColor();
+    }
+}

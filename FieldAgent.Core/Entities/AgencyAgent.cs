@@ -12,7 +12,7 @@ public class AgencyAgent
     public int AgencyId { get; set; }
     public int AgentId { get; set; }
     public int SecurityClearanceId { get; set; }
-    public string BadgeId { get; set; }
+    public Guid BadgeId { get; set; }
     public DateTime ActivationDate { get; set; }
     public DateTime? DeactivationDate { get; set; }
     public bool IsActive { get; set; }
