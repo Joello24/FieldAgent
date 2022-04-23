@@ -19,12 +19,12 @@ public class LocationRepository : ILocationRepository
             {
                 response.Data= db.Location.Add(location).Entity;
                 db.SaveChanges();
-                
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
                 response.Success = false;
+                return response;
             }
         }
         response.Success = true;
@@ -45,6 +45,7 @@ public class LocationRepository : ILocationRepository
             {
                 response.Message = ex.Message;
                 response.Success = false;
+                return response;
             }
         }
         response.Success = true;
@@ -66,6 +67,7 @@ public class LocationRepository : ILocationRepository
             {
                 response.Message = ex.Message;
                 response.Success = false;
+                return response;
             }
         }
         response.Success = true;
@@ -80,6 +82,12 @@ public class LocationRepository : ILocationRepository
             try
             {
                 response.Data = db.Location.FirstOrDefault(x => x.LocationId == locationId);
+                if (response.Data == null)
+                {
+                    response.Message = "Location not found";
+                    response.Success = false;
+                    return response;
+                }
             }
             catch (Exception ex)
             {
@@ -99,6 +107,12 @@ public class LocationRepository : ILocationRepository
             try
             {
                 response.Data = db.Location.Where(x => x.AgencyId == agencyId).ToList();
+                if(response.Data.Count==0)
+                {
+                    response.Message = "No Locations found";
+                    response.Success = false;
+                    return response;
+                }
             }
             catch (Exception ex)
             {

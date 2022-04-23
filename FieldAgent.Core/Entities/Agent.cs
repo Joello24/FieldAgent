@@ -14,5 +14,8 @@ public class Agent
     public DateTime DateOfBirth { get; set; }
     public decimal Height { get; set; }
     
+    public List<MissionAgent> MissionAgent { get; set; }
+    public List<AgencyAgent> AgencyAgent { get; set; }
+    public List<Alias> Alias { get; set; }
 }
 

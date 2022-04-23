@@ -18,6 +18,12 @@ public class SecurityClearanceRepository : ISecurityClearanceRepository
             try
             {
                 response.Data = db.SecurityClearance.FirstOrDefault(x => x.SecurityClearanceId == securityClearanceId);
+                if (response.Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "Security Clearance not found";
+                    return response;
+                }
             }
             catch(Exception ex)
             {

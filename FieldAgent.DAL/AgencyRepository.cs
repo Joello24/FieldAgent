@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using FieldAgent.Core;
 using FieldAgent.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FieldAgent.DAL;
 
@@ -58,7 +59,18 @@ public class AgencyRepository : IAgencyRepository
         {
             try
             {
-                var agency = db.Agency.Find(agencyId);
+                //agencyagent, missionagent, mission, location
+                // Remove constraints first to avoid foreign key constraint violation
+                var agency = db.Agency.Where(i=>i.AgencyId==agencyId).Include(i=>i.Mission).Include(i=>i.AgencyAgent).Include(i=>i.Location).FirstOrDefault();
+                var mission = db.Mission.Where(i => i.AgencyId == agencyId).Include(i=>i.MissionAgent).ToList();
+
+                foreach (var m in mission)
+                {
+                    db.Mission.Remove(m);
+                }
+                
+                Console.WriteLine("Break");
+                //var agency = db.Agency.Find(agencyId);
                 db.Agency.Remove(agency);
                 db.SaveChanges();
             }

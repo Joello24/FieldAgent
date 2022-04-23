@@ -8,9 +8,9 @@ public class DBFactory
     public AppDbContext GetDbContext()
     {
         var builder = new ConfigurationBuilder();
-        builder.AddUserSecrets<AppDbContext>();
-        //builder.SetBasePath(Directory.GetCurrentDirectory());
-        //builder.AddJsonFile("appsettings.json");
+        //builder.AddUserSecrets<AppDbContext>();
+        builder.SetBasePath(Directory.GetCurrentDirectory());
+        builder.AddJsonFile("appsettings.json");
         
         var config = builder.Build();
         

@@ -32,14 +32,51 @@ public class AgencyAgentRepositoryTests
     {
         DBFactory factory = new DBFactory();
         db = new AgencyAgentRepository(factory);
-        factory.GetDbContext().Database.ExecuteSqlRaw("SetKnownGoodState");
+        factory.GetDbContext().Database.ExecuteSqlRaw("TestSetKnownGoodState");
     }
 
+    
+    // Response<AgencyAgent> Insert(AgencyAgent agencyAgent);
+    // Response Update(AgencyAgent agencyAgent);
+    // Response Delete(int agencyid, int agentid);
+    // Response<AgencyAgent> Get(int agencyid, int agentid);
+    // Response<List<AgencyAgent>> GetByAgency(int agencyId);
+    // Response<List<AgencyAgent>> GetByAgent(int agentId);
     [Test]
     public void TestGetAgencyAgent()
     {
         var actual = db.Get(1, 1);
         Assert.AreEqual(tester1.ToString(), actual.Data.ToString());
+    }
+    [Test]
+    public void TestInsertAgencyAgent()
+    {
+        var actual = db.Insert(tester1);
+        Assert.AreEqual(true, actual.Success);
+    }
+    [Test]
+    public void TestUpdateAgencyAgent()
+    {
+        var actual = db.Update(tester1);
+        Assert.AreEqual(true, actual.Success);
+    }
+    [Test]
+    public void TestDeleteAgencyAgent()
+    {
+        var actual = db.Delete(1, 1);
+        Assert.AreEqual(true, actual.Success);
+    }
+    [Test]
+    public void TestGetByAgency()
+    {
+        var actual = db.GetByAgency(1);
+        Assert.AreEqual(true, actual.Success);
+    }
+    [Test]
+    public void TestGetByAgent()
+    {
+        var actual = db.GetByAgent(1);
+        Assert.AreEqual(true, actual.Success);
     }
     
     

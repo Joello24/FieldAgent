@@ -82,6 +82,12 @@ public class AliasRepository : IAliasRepository
             try
             {
                 response.Data = db.Alias.FirstOrDefault(x => x.AliasId == aliasId);
+                if (response.Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "Alias not found";
+                    return response;   
+                }
             }
             catch (Exception ex)
             {
@@ -104,6 +110,12 @@ public class AliasRepository : IAliasRepository
             {
                 aliasList = db.Alias.Where(x => x.AgentId == agentId).ToList();
                 response.Data = aliasList;
+                if (response.Data.Count == 0)
+                {
+                    response.Success = false;
+                    response.Message = "No Alias' found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {

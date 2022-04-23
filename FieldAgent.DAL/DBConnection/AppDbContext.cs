@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Location> Location { get; set; }
     public DbSet<Mission> Mission { get; set; }
     public DbSet<SecurityClearance> SecurityClearance { get; set; }
+    
     public DbSet<MissionAgent> MissionAgent { get; set; }
 
     public AppDbContext() : base()
@@ -26,6 +27,12 @@ public class AppDbContext : DbContext
     {
         modelBuilder.Entity<AgencyAgent>()
             .HasKey(agag => new { agag.AgencyId, agag.AgentId });
+        modelBuilder.Entity<MissionAgent>()
+            .HasKey(ma => new { ma.MissionId, ma.AgentId });
+        // modelBuilder.Entity<Mission>()
+        //     .HasMany(aMission => aMission.Agent)
+        //     .WithMany(aAgent=> aAgent.Mission);
+        
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

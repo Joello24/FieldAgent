@@ -16,7 +16,9 @@ public class Mission
     public string CodeName { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime ProjectedEndDate { get; set; }
-    public DateTime ActualEndDate { get; set; }
+    public DateTime? ActualEndDate { get; set; }
     public decimal OperationalCost { get; set; }
     public string? Notes { get; set; }
+    
+    public List<MissionAgent> MissionAgent { get; set; }
 }

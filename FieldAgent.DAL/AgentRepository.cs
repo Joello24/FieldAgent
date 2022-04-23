@@ -1,5 +1,6 @@
 ﻿using FieldAgent.Core;
 using FieldAgent.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FieldAgent.DAL;
 
@@ -60,7 +61,7 @@ public class AgentRepository : IAgentRepository
         {
             try
             {
-                var agent = db.Agent.FirstOrDefault(x => x.AgentId == agentId);
+                var agent = db.Agent.Where(x => x.AgentId == agentId).Include(x=>x.Alias).Include(x=>x.MissionAgent).Include(i=>i.AgencyAgent).FirstOrDefault();
                 db.Remove(agent);
                 db.SaveChanges();
             }
@@ -83,6 +84,12 @@ public class AgentRepository : IAgentRepository
             try
             {
                 response.Data = db.Agent.FirstOrDefault(x => x.AgentId == agentId);
+                if(response.Data == null)
+                {
+                    response.Message = "Agent not found";
+                    response.Success = false;
+                    return response;
+                }
             }
             catch (Exception e)
             {
@@ -109,6 +116,12 @@ public class AgentRepository : IAgentRepository
                         select m
                     ).ToList();
                 response.Data = missions;
+                if(missions.Count == 0)
+                {
+                    response.Message = "No missions found";
+                    response.Success = false;
+                    return response;
+                }
             }
             catch (Exception e)
             {
