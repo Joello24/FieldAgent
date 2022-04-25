@@ -1,5 +1,6 @@
 ﻿using FieldAgent.Core;
 using FieldAgent.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FieldAgent.DAL;
 
@@ -59,7 +60,7 @@ public class MissionRepository : IMissionRepository
         {
             try
             {
-                var mission = db.Mission.Find(missionId);
+                var mission = db.Mission.Where(m=>m.MissionId==missionId).Include(ma => ma.MissionAgent).FirstOrDefault();
                 db.Mission.Remove(mission);
                 db.SaveChanges();
             }

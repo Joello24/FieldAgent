@@ -109,6 +109,16 @@ public class MissionRepositoryTests
         var actual = db.Update(InsertableMission);
         Assert.IsFalse(actual.Success);
     }
-    
-
+    [Test]
+    public void DeleteGoodMissionTest()
+    {
+        var actual = db.Delete(1);
+        Assert.IsTrue(actual.Success);
+    }
+    [Test]
+    public void DeleteBadMissionTest()
+    {
+        var actual = db.Delete(1000);
+        Assert.IsFalse(actual.Success);
+    }
 }

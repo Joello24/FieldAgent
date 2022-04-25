@@ -40,14 +40,14 @@ public class ReportsRepositoryTests
         Assert.AreEqual(7, actual.Data.Count);
         Assert.AreEqual(PensionListIndex1Guid, actual.Data[0].BadgeId);
     }
-
+    
     [Test]
     public void GetBadPensionListTest()
     {
         var actual = db.GetPensionList(8);
         Assert.IsFalse(actual.Success);
     }
-
+    
     [Test] 
     public void GetTopAgentsTest()
     {
@@ -83,4 +83,4 @@ public class ReportsRepositoryTests
         var actual = db.AuditClearance(10, 3);
         Assert.IsFalse(actual.Success);
     } 
-}
+} 

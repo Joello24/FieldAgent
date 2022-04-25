@@ -9,16 +9,6 @@ namespace FieldAgent.Tests;
 
 public class LocationRepositoryTests
 {
-    
-    // public int LocationId { get; set; }
-    // public int AgencyId { get; set; }
-    // public string LocationName { get; set; }
-    // public string Street1 { get; set; }
-    // public string? Street2 { get; set; }
-    // public string City { get; set; }
-    // public string PostalCode { get; set; }
-    // public string CountryCode { get; set; }
-    
     LocationRepository db;
     DBFactory factory;
 
@@ -80,6 +70,7 @@ public class LocationRepositoryTests
     {
         var actual = db.Insert(GoodNewLocation);
         Assert.IsTrue(actual.Success);
+        Assert.AreEqual(GoodNewLocation.LocationId, actual.Data.LocationId);
     }
     [Test]
     public void TestUpdateBadLocation()

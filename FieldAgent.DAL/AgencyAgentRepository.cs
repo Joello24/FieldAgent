@@ -110,7 +110,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             try
             {
                 data = db.AgencyAgent.Where(x => x.AgencyId == agencyId).ToList();
-                if (data == null)
+                if (data.Count == 0)
                 {
                     response.Success = false;
                     response.Message = "No record found";
@@ -138,7 +138,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             try
             {
                 data = db.AgencyAgent.Where(x => x.AgentId == agentId).ToList();
-                if (data == null)
+                if (data.Count ==0)
                 {
                     response.Success = false;
                     response.Message = "No record found";

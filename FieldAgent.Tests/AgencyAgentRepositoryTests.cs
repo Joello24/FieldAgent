@@ -13,13 +13,6 @@ public class AgencyAgentRepositoryTests
     DBFactory factory;
     AgencyAgent tester1 = new AgencyAgent
     {
-        // public int AgencyId { get; set; }
-        // public int AgentId { get; set; }
-        // public int SecurityClearanceId { get; set; }
-        // public string BadgeId { get; set; }
-        // public DateTime ActivationDate { get; set; }
-        // public DateTime? DeactivationDate { get; set; }
-        // public bool IsActive { get; set; }
         AgencyId = 1,
         AgentId = 1,
         SecurityClearanceId = 1,
@@ -29,13 +22,6 @@ public class AgencyAgentRepositoryTests
     };
     AgencyAgent Bad = new AgencyAgent
     {
-        // public int AgencyId { get; set; }
-        // public int AgentId { get; set; }
-        // public int SecurityClearanceId { get; set; }
-        // public string BadgeId { get; set; }
-        // public DateTime ActivationDate { get; set; }
-        // public DateTime? DeactivationDate { get; set; }
-        // public bool IsActive { get; set; }
         AgencyId = 10,
         AgentId = 1,
         SecurityClearanceId = 1,

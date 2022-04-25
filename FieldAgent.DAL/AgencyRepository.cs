@@ -62,8 +62,8 @@ public class AgencyRepository : IAgencyRepository
                 //agencyagent, missionagent, mission, location
                 // Remove constraints first to avoid foreign key constraint violation
                 var agency = db.Agency.Where(i=>i.AgencyId==agencyId).Include(i=>i.Mission).Include(i=>i.AgencyAgent).Include(i=>i.Location).FirstOrDefault();
-                var mission = db.Mission.Where(i => i.AgencyId == agencyId).Include(i=>i.MissionAgent).ToList();
-
+                var mission = db.Mission.Where(i => i.AgencyId == agencyId).Include(i=>i.MissionAgent).ToList(); 
+                
                 foreach (var m in mission)
                 {
                     db.Mission.Remove(m);
@@ -118,7 +118,7 @@ public class AgencyRepository : IAgencyRepository
             try
             {
                 data = db.Agency.ToList();
-                if (response.Data.Count == 0)
+                if (data.Count == 0)
                 {
                     response.Success = false;
                     response.Message = "No records found";
