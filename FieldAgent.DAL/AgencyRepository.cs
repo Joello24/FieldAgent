@@ -69,8 +69,6 @@ public class AgencyRepository : IAgencyRepository
                     db.Mission.Remove(m);
                 }
                 
-                Console.WriteLine("Break");
-                //var agency = db.Agency.Find(agencyId);
                 db.Agency.Remove(agency);
                 db.SaveChanges();
             }
@@ -93,6 +91,12 @@ public class AgencyRepository : IAgencyRepository
             try
             {
                 response.Data = db.Agency.Find(agencyId);
+                if (response.Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No record found";
+                    return response;
+                }
             }
             catch (Exception e)
             {
@@ -114,6 +118,12 @@ public class AgencyRepository : IAgencyRepository
             try
             {
                 data = db.Agency.ToList();
+                if (response.Data.Count == 0)
+                {
+                    response.Success = false;
+                    response.Message = "No records found";
+                    return response;
+                }
             }
             catch (Exception e)
             {

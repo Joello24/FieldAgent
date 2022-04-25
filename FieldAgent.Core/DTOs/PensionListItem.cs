@@ -6,5 +6,5 @@ public class PensionListItem
     public Guid BadgeId { get; set; }
     public string NameLastFirst { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public DateTime DeactivationDate { get; set; }
+    public DateTime? DeactivationDate { get; set; }
 }

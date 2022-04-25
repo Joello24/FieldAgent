@@ -83,6 +83,12 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             try
             {
                 response.Data = db.AgencyAgent.FirstOrDefault(x => x.AgencyId == agencyid && x.AgentId == agentid);
+                if (response.Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No record found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {
@@ -104,6 +110,12 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             try
             {
                 data = db.AgencyAgent.Where(x => x.AgencyId == agencyId).ToList();
+                if (data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No record found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {
@@ -126,6 +138,12 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             try
             {
                 data = db.AgencyAgent.Where(x => x.AgentId == agentId).ToList();
+                if (data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No record found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {

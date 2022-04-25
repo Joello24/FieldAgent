@@ -20,4 +20,18 @@ public class DBFactory
 
         return new AppDbContext(options);
     }
+    
+    public string GetConnectionString()
+    {
+        var builder = new ConfigurationBuilder();
+        //builder.AddUserSecrets<AppDbContext>();
+        builder.SetBasePath(Directory.GetCurrentDirectory());
+        builder.AddJsonFile("appsettings.json");
+        
+        var config = builder.Build();
+        
+        var connectionString = config["ConnectionStrings:FieldAgent"];
+
+        return connectionString;
+    }
 }

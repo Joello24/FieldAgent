@@ -27,6 +27,22 @@ public class AgencyAgentRepositoryTests
         ActivationDate = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0)),
         IsActive = true
     };
+    AgencyAgent Bad = new AgencyAgent
+    {
+        // public int AgencyId { get; set; }
+        // public int AgentId { get; set; }
+        // public int SecurityClearanceId { get; set; }
+        // public string BadgeId { get; set; }
+        // public DateTime ActivationDate { get; set; }
+        // public DateTime? DeactivationDate { get; set; }
+        // public bool IsActive { get; set; }
+        AgencyId = 10,
+        AgentId = 1,
+        SecurityClearanceId = 1,
+        BadgeId = tester1Guid,
+        ActivationDate = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0)),
+        IsActive = true
+    };
     [SetUp]
     public void Setup()
     {
@@ -43,41 +59,78 @@ public class AgencyAgentRepositoryTests
     // Response<List<AgencyAgent>> GetByAgency(int agencyId);
     // Response<List<AgencyAgent>> GetByAgent(int agentId);
     [Test]
-    public void TestGetAgencyAgent()
+    public void TestGetGoodAgencyAgent()
     {
         var actual = db.Get(1, 1);
         Assert.AreEqual(tester1.ToString(), actual.Data.ToString());
     }
+
     [Test]
-    public void TestInsertAgencyAgent()
+    public void TestGetBadAgencyAgent()
+    {
+        var actual = db.Get(1000,1000);
+        Assert.IsNull(actual.Data);
+    }
+
+    [Test]
+    public void TestInsertGoodAgencyAgent()
     {
         var actual = db.Insert(tester1);
         Assert.AreEqual(true, actual.Success);
     }
+
     [Test]
-    public void TestUpdateAgencyAgent()
+    public void TestInsertBadAgencyAgent()
+    {
+        var actual = db.Insert(Bad);
+        Assert.AreEqual(false, actual.Success);
+    }
+    [Test]
+    public void TestUpdateGoodAgencyAgent()
     {
         var actual = db.Update(tester1);
         Assert.AreEqual(true, actual.Success);
     }
     [Test]
-    public void TestDeleteAgencyAgent()
+    public void TestUpdateBadAgencyAgent()
+    {
+        var actual = db.Update(Bad);
+        Assert.AreEqual(false, actual.Success);
+    }
+    [Test]
+    public void TestDeleteGoodAgencyAgent()
     {
         var actual = db.Delete(1, 1);
         Assert.AreEqual(true, actual.Success);
     }
+    public void TestDeleteBadAgencyAgent()
+    {
+        var actual = db.Delete(1000, 1000);
+        Assert.AreEqual(false, actual.Success);
+    }
     [Test]
-    public void TestGetByAgency()
+    public void TestGetByAgencyGood()
     {
         var actual = db.GetByAgency(1);
         Assert.AreEqual(true, actual.Success);
     }
     [Test]
-    public void TestGetByAgent()
+    public void TestGetByAgencyBad()
+    {
+        var actual = db.GetByAgency(1000);
+        Assert.AreEqual(false, actual.Success);
+    }
+    [Test]
+    public void TestGetByAgentGood()
     {
         var actual = db.GetByAgent(1);
         Assert.AreEqual(true, actual.Success);
     }
-    
-    
+
+    [Test]
+    public void TestGetByAgentBad()
+    {
+        var actual = db.GetByAgent(1000);
+        Assert.AreEqual(false, actual.Success);
+    }
 }

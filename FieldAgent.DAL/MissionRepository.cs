@@ -82,6 +82,12 @@ public class MissionRepository : IMissionRepository
             try
             {
                 response.Data = db.Mission.Find(missionId);
+                if (response.Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No record found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {
@@ -102,6 +108,12 @@ public class MissionRepository : IMissionRepository
             try
             {
                 response.Data = db.Mission.Where(m => m.AgencyId == agencyId).ToList();
+                if (response.Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No record found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {
@@ -123,8 +135,14 @@ public class MissionRepository : IMissionRepository
             {
                 response.Data = (from m in db.Mission
                                 join ma in db.MissionAgent on m.MissionId equals ma.MissionId
-                                where ma.MissionId == m.MissionId
+                                where ma.AgentId == agentId
                                 select m).ToList();
+                if (response.Data.Count == 0)
+                {
+                    response.Success = false;
+                    response.Message = "No records found";
+                    return response;
+                }
             }
             catch (Exception ex)
             {

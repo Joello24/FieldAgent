@@ -83,5 +83,23 @@ public class AgencyRepositoryTests
         var expected = db.Delete(2);
         Assert.IsTrue(expected.Success);
     }
+    [Test]
+    public void TestBadKeyGetAgency()
+    {
+        var expected = db.Get(9);
+        Assert.IsFalse(expected.Success);
+    }
+    [Test]
+    public void TestGoodKeyGetAgency()
+    {
+        var expected = db.Get(1);
+        Assert.IsTrue(expected.Success);
+    }
+    [Test]
+    public void TestGetAllAgencies()
+    {
+        var expected = db.GetAll();
+        Assert.IsTrue(expected.Success);
+    }
 }
     
