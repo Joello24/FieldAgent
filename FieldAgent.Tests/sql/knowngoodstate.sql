@@ -37,7 +37,7 @@ BEGIN
 
 
 
-    insert into Agency ( ShortName, LongName)
+    insert into Agency (ShortName, LongName)
     values ('FBI', 'Federal Bureau of Investigation'), ('CIA', 'Central Intelligence Agency'), ('NSA', 'National Security Agency'),
            ('BATFE','Bureau of Alcohol, Tobacco, Firearms and Explosives'),('DEA','Drug Enforcement Administration'),('HSI','Homeland Security Investigations'),
            ('SS' ,'US Secret Service');

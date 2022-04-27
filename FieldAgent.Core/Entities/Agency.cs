@@ -10,7 +10,6 @@ public class Agency
     public int AgencyId { get; set; }
     public string ShortName { get; set; }
     public string LongName { get; set; }
-    
     public List<Mission> Mission { get; set; }
     public List<AgencyAgent> AgencyAgent { get; set; }
     public List<Location> Location { get; set; }
