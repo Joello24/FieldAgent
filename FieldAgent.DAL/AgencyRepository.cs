@@ -91,6 +91,7 @@ public class AgencyRepository : IAgencyRepository
             try
             {
                 response.Data = db.Agency.Find(agencyId);
+                //var data = db.Agency.Where(i => i.AgencyId == agencyId).Include(i => i.Location).Include(i => i.Location).Include(i=>i.Mission);
                 if (response.Data == null)
                 {
                     response.Success = false;

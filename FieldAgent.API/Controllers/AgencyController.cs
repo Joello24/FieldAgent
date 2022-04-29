@@ -2,7 +2,7 @@
 using FieldAgent.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication1.Controllers;
+namespace FieldAgent.API.Controllers;
 
 public class AgencyController : ControllerBase
 {
