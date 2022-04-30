@@ -23,7 +23,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             }
             catch(Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -44,7 +44,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -66,7 +66,8 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -92,7 +93,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -119,7 +120,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -147,7 +148,7 @@ public class AgencyAgentRepository : IAgencyAgentRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }

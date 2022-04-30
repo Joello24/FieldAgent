@@ -22,7 +22,8 @@ public class AliasRepository : IAliasRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -43,7 +44,8 @@ public class AliasRepository : IAliasRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -65,7 +67,8 @@ public class AliasRepository : IAliasRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -91,7 +94,8 @@ public class AliasRepository : IAliasRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -119,7 +123,8 @@ public class AliasRepository : IAliasRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }

@@ -1,9 +1,4 @@
 ﻿
-USE FieldAgentTest;
-GO
-CREATE PROCEDURE [TestSetKnownGoodState]
-AS
-BEGIN
     delete from AgencyAgent where 1=1;
 
 
@@ -643,7 +638,4 @@ BEGIN
     insert into MissionAgent (MissionId, AgentId) values (28, 52);
     insert into MissionAgent (MissionId, AgentId) values (4, 50);
 
-
-END;
 go
-

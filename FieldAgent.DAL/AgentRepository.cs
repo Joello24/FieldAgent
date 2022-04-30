@@ -24,7 +24,8 @@ public class AgentRepository : IAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -45,7 +46,8 @@ public class AgentRepository : IAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -67,7 +69,7 @@ public class AgentRepository : IAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -93,7 +95,8 @@ public class AgentRepository : IAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -125,7 +128,8 @@ public class AgentRepository : IAgentRepository
             }
             catch (Exception e)
             {
-                response.Message = e.Message;
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }

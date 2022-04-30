@@ -23,7 +23,45 @@ public class MissionRepository : IMissionRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                response.Success = false;
+                return response;
+            }
+        }
+        response.Success = true;
+        return response;
+    }
+    public Response Update(Mission mission, bool remove)
+    {
+        Response response = new Response();
+        using (var db = _dbFactory.GetDbContext())
+        {
+            try
+            {
+                if (mission.MissionAgent != null && db.Agent.Find(mission.MissionAgent[0].AgentId) != null)
+                {
+                    if(mission.MissionAgent.Count == 1 && remove == false)
+                        db.MissionAgent.Add(mission.MissionAgent[0]);
+                    if(mission.MissionAgent.Count == 1 && remove == true)
+                        db.MissionAgent.Remove(mission.MissionAgent[0]);
+                    else{
+                        response.Message = "Multiple mission agents found.";
+                    }
+                }
+                else
+                {
+                    response.Message = "Agent not found.";
+                    response.Success = false;
+                    return response;
+                }
+
+                db.Mission.Update(mission);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -44,7 +82,8 @@ public class MissionRepository : IMissionRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -66,7 +105,8 @@ public class MissionRepository : IMissionRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -92,7 +132,7 @@ public class MissionRepository : IMissionRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }
@@ -118,7 +158,8 @@ public class MissionRepository : IMissionRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
                 response.Success = false;
                 return response;
             }
@@ -147,7 +188,7 @@ public class MissionRepository : IMissionRepository
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
+                response.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 response.Success = false;
                 return response;
             }

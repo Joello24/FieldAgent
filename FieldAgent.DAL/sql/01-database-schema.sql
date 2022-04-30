@@ -1,10 +1,10 @@
 USE master;
 GO
 
-CREATE DATABASE FieldAgent;
+CREATE DATABASE FieldAgentTest;
 GO
 
-USE FieldAgent;
+USE FieldAgentTest;
 GO
 
 CREATE TABLE Agency (

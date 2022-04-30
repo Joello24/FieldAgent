@@ -1,10 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FieldAgent.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace FieldAgent.DAL;
 
 public class DBFactory
 {
+    private readonly AppMode _mode;
+    public DBFactory(AppMode mode = AppMode.Test)
+    {
+        _mode = mode;
+    }
+
     public AppDbContext GetDbContext()
     {
         var builder = new ConfigurationBuilder();
@@ -13,9 +20,16 @@ public class DBFactory
         builder.AddJsonFile("appsettings.json");
         
         var config = builder.Build();
-        
-        var connectionString = config["ConnectionStrings:FieldAgent"];
+        string connectionString;
+        if (_mode == AppMode.Test)
+        {
+            connectionString = config[$"ConnectionStrings:FieldAgentTest"];
 
+        }
+        else
+        {
+            connectionString = config["ConnectionStrings:FieldAgent"];
+        }
         var options = new DbContextOptionsBuilder<AppDbContext>().UseSqlServer(connectionString).Options;
 
         return new AppDbContext(options);
