@@ -1,6 +1,7 @@
 ﻿using FieldAgent.Core;
 using FieldAgent.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.ViewModels;
 
@@ -11,10 +12,27 @@ namespace FieldAgent.API.Controllers;
 public class AgentController : ControllerBase
 {
     private readonly IAgentRepository _agentRepository;
+    private readonly IReportsRepository _reportsRepository;
 
-    public AgentController(IAgentRepository agentRepository)
+    public AgentController(IAgentRepository agentRepository, IReportsRepository reportsRepository)
     {
+        _reportsRepository = reportsRepository;
         _agentRepository = agentRepository;
+    }
+    
+    [HttpGet]
+    [Route("/api/[controller]",Name = "GetAgents")]
+    public IActionResult GetAgents()
+    {
+        var agent = _agentRepository.GetAll();
+        if(agent.Success)
+        {
+            return Ok(agent.Data);
+        }
+        else
+        {
+            return BadRequest(agent.Message);
+        }
     }
 
     [HttpGet]
@@ -132,6 +150,84 @@ public class AgentController : ControllerBase
         else
         {
             return BadRequest(result.Message);
+        }
+    }
+    // Search by term and return agents
+    [HttpGet]
+    [Route("/api/[controller]/search/{term}", Name = "SearchAgents")]
+    public IActionResult SearchAgents(string term)
+    {
+        var agents = _reportsRepository.AgentSearch(term);
+        if(agents.Success)
+        {
+            if(agents.Data.Count == 0)
+            {
+                return NotFound("No agents found");
+            }
+            return Ok(agents.Data);
+        }
+        else
+        {
+            return BadRequest(agents.Message);
+        }
+    }
+    // Response<List<TopAgentListItem>> GetTopAgents();
+    //Response<List<PensionListItem>> GetPensionList(int agencyId);
+    //Response<List<ClearanceAuditListItem>> AuditClearance(int securityClearanceId, int agencyId);
+    [HttpGet]
+    [Route("/api/[controller]/topagents", Name = "GetTopAgents")]
+    public IActionResult GetTopAgents()
+    {
+        var agents = _reportsRepository.GetTopAgents();
+        if(agents.Success)
+        {
+            if(agents.Data.Count == 0)
+            {
+                return NotFound("No agents found");
+            }
+            return Ok(agents.Data);
+        }
+        else
+        {
+            return BadRequest(agents.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("/api/[controller]/pensionlist/{agencyId}", Name = "GetPensionList")]
+    public IActionResult GetPensionList(int agencyId)
+    {
+        var pensions = _reportsRepository.GetPensionList(agencyId);
+        if(pensions.Success)
+        {
+            if(pensions.Data.Count == 0)
+            {
+                return NotFound("No pensions found");
+            }
+            return Ok(pensions.Data);
+        }
+        else
+        {
+            return BadRequest(pensions.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("/api/[controller]/clearanceaudit/{securityClearanceId}/{agencyId}", Name = "AuditClearance")]
+    public IActionResult AuditClearance(int securityClearanceId, int agencyId)
+    {
+        var audit = _reportsRepository.AuditClearance(securityClearanceId, agencyId);
+        if(audit.Success)
+        {
+            if(audit.Data.Count == 0)
+            {
+                return NotFound("No audit found");
+            }
+            return Ok(audit.Data);
+        }
+        else
+        {
+            return BadRequest(audit.Message);
         }
     }
 }

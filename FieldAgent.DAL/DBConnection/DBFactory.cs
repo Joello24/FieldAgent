@@ -24,7 +24,6 @@ public class DBFactory
         if (_mode == AppMode.Test)
         {
             connectionString = config[$"ConnectionStrings:FieldAgentTest"];
-
         }
         else
         {

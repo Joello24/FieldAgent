@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using FieldAgent.Core;
+using FieldAgent.Core.Entities;
 
 namespace FieldAgent.DAL;
 
@@ -166,6 +167,56 @@ public class ReportsRepository : IReportsRepository
             }
         }
         response.Data = auditList;
+        response.Success = true;
+        return response;
+    }
+
+    public Response<List<Agent>> AgentSearch(string term)
+    {
+        Response<List<Agent>> response = new Response<List<Agent>>();
+        List<Agent> agentList = new List<Agent>();
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            try
+            {
+                var sql = ($"SearchAgentsFirstNameByInput");
+                var command = new SqlCommand(sql, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = sql;
+                var param = command.Parameters.Add("@searchTerm", SqlDbType.VarChar);
+                param.Value = term;
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Agent agent = new Agent();
+                        agent.AgentId = int.Parse(reader["AgentId"].ToString());
+                        agent.FirstName = (string) reader["FirstName"];
+                        agent.LastName = (string) reader["LastName"];
+                        agent.DateOfBirth = DateTime.Parse(reader["DateOfBirth"].ToString());
+                        agent.Height = decimal.Parse(reader["Height"].ToString());
+
+                        agentList.Add(agent);
+                    }
+                }
+
+                if (agentList.Count ==0)
+                {
+                    response.Success = false;
+                    response.Message = "No Agents Found";
+                    return response;              
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return response;
+            }
+        }
+        response.Data = agentList;
         response.Success = true;
         return response;
     }

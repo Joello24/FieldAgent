@@ -177,7 +177,7 @@ public class MissionController : Controller
             AgentId = agentId
         });
         findMission.Data.MissionAgent = ma;
-        var result = _missionRepository.Update(findMission.Data, true);
+        var result = _missionRepository.Update(findMission.Data, false);
         
         if(result.Success)
         {

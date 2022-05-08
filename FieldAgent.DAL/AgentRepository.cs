@@ -137,4 +137,30 @@ public class AgentRepository : IAgentRepository
         response.Success = true;
         return response;
     }
+
+    public Response<List<Agent>> GetAll()
+    {   
+        Response<List<Agent>> response = new Response<List<Agent>>();
+        using (var db = _dbFactory.GetDbContext())
+        {
+            try
+            {
+                response.Data = db.Agent.ToList();
+                if(response.Data.Count == 0)
+                {
+                    response.Message = "No agents found";
+                    response.Success = false;
+                    return response;
+                }
+            }
+            catch (Exception e)
+            {
+                response.Message = e.InnerException == null ? e.Message : e.InnerException.Message;
+
+                response.Success = false;
+                return response;
+            }
+        }
+        response.Success = true;
+        return response;  }
 }

@@ -10,7 +10,6 @@ namespace WebApplication1;
 
 public class Startup
 {
-    
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -28,6 +27,18 @@ public class Startup
                 services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             });
         
+        services.AddCors(options =>
+        {
+            options.AddPolicy("MyAllowSpecificOrigins",
+                policy =>
+                {
+                    policy.WithOrigins("*", "http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+        });
+        
         var fac = new DBFactory(AppMode.Live);
         
         services.AddControllers();
@@ -37,6 +48,7 @@ public class Startup
         services.AddTransient<IAliasRepository>(r => new AliasRepository(fac));
         //services.AddTransient<ILocationRepository>(r => new LocationRepository(fac));
         services.AddTransient<IMissionRepository>(r => new MissionRepository(fac));
+        services.AddTransient<IReportsRepository>(r => new ReportsRepository(fac.GetConnectionString()));
         //services.AddTransient<IReportsRepository>(r => new ReportsRepository(fac.GetConnectionString()));
         //services.AddTransient<ISecurityClearanceRepository>(r => new SecurityClearanceRepository(fac));
     }
@@ -48,7 +60,9 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
+        
         app.UseRouting();
+        app.UseCors("MyAllowSpecificOrigins");
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>
